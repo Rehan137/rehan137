@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>Rehan Malek | Offensive Security</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --bg-gradient: radial-gradient(circle at center, #1a0505 0%, #000000 100%);
+            --glass-bg: rgba(20, 5, 5, 0.7);
+            --neon-red: #ff003c;
+            --neon-dim: #5c0016;
+            --text-main: #f0f0f0;
+            --text-dim: #a0a0a0;
+            --card-border: rgba(255, 255, 255, 0.1);
+            --font-mono: 'Courier New', Courier, monospace;
+            --terminal-bg: rgba(10, 10, 10, 0.95);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f4f4;
+            --bg-gradient: radial-gradient(circle at center, #ffffff 0%, #e0e0e0 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --neon-red: #d9002f;
+            --neon-dim: #ffcccc;
+            --text-main: #111111;
+            --text-dim: #444444;
+            --card-border: rgba(0, 0, 0, 0.1);
+            --terminal-bg: rgba(245, 245, 245, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff4d6d; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* --- PRELOADER & CRACK EFFECT --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--neon-red); font-family: var(--font-mono);
+            overflow: hidden; transition: opacity 0.5s ease-out;
+        }
+        .loader-text { font-size: 1.2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; z-index: 2; }
+        .loader-bar { width: 200px; height: 2px; background: #333; position: relative; overflow: hidden; z-index: 2; }
+        .loader-bar::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--neon-red); animation: load 2s linear infinite; }
+        #crack-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; z-index: 3; display: flex; justify-content: center; align-items: center; }
+        .crack-svg { width: 100%; height: 100%; fill: none; stroke: rgba(255, 255, 255, 0.8); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6)); }
+        .shake-screen { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, -2px, 0) rotate(1deg); }
+            20%, 80% { transform: translate3d(4px, 4px, 0) rotate(-1deg); }
+            30%, 50%, 70% { transform: translate3d(-6px, -6px, 0) rotate(2deg); }
+            40%, 60% { transform: translate3d(6px, 6px, 0) rotate(-2deg); }
+        }
+        @keyframes load { 0% { left: -100%; } 100% { left: 100%; } }
+
+        /* --- BACKGROUND --- */
+        #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-gradient); transition: background 0.5s ease; }
+        body::after { content: " "; display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%); background-size: 100% 4px; pointer-events: none; z-index: 999; }
+
+        /* --- HEADER --- */
+        header { position: sticky; top: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid var(--neon-red); z-index: 100; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; transition: all 0.5s ease; }
+        
+        .logo { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            color: var(--text-main); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            white-space: nowrap; 
+            text-decoration: none; /* Make link look like logo */
+            cursor: pointer;
+        }
+        .logo span { color: var(--neon-red); }
+        .logo:hover { text-shadow: 0 0 10px var(--neon-red); }
+
+        .header-controls { display: flex; align-items: center; gap: 20px; }
+        .theme-toggle { background: none; border: 1px solid var(--neon-red); color: var(--neon-red); padding: 6px 10px; cursor: pointer; border-radius: 4px; font-size: 1rem; transition: 0.3s; }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--neon-red); }
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; }
+
+        /* --- HERO --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; margin-top: -60px; padding-top: 80px; }
+        .glitch-wrapper { position: relative; margin-bottom: 10px; }
+        .glitch { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--text-main); position: relative; z-index: 1; line-height: 1.1; }
+        .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); }
+        .glitch::before { left: 2px; text-shadow: -2px 0 var(--neon-red); clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 3s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -2px 0 #00ffff; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2s infinite linear alternate-reverse; }
+        .subtitle { margin-top: 15px; font-size: clamp(1rem, 4vw, 1.4rem); color: var(--neon-red); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- INTERACTIVE TERMINAL --- */
+        .terminal-window { margin-top: 40px; width: 100%; max-width: 650px; background: var(--terminal-bg); border: 1px solid var(--neon-red); border-radius: 8px; box-shadow: 0 0 20px rgba(255, 0, 60, 0.1); overflow: hidden; transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .terminal-window:hover { transform: translateY(-2px); }
+        .terminal-bar { background: rgba(255, 255, 255, 0.05); padding: 8px 15px; display: flex; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); align-items: center; }
+        .term-title { font-size: 0.75rem; color: var(--text-dim); margin-left: auto; }
+        .btn { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        
+        .terminal-body { padding: 20px; text-align: left; font-size: clamp(0.85rem, 3vw, 1rem); min-height: 250px; color: var(--text-main); font-family: var(--font-mono); overflow-y: auto; }
+        .output-line { margin-bottom: 5px; word-wrap: break-word; }
+        .input-line { display: flex; word-wrap: break-word; }
+        .prompt-user { color: #27c93f; }
+        .prompt-path { color: #5dade2; }
+        #cmd-input { background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: inherit; flex-grow: 1; outline: none; margin-left: 5px; }
+
+        /* --- SECTIONS --- */
+        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--text-main); margin-bottom: 50px; display: flex; align-items: center; gap: 15px; }
+        h2 span { color: var(--neon-red); }
+        h2::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(90deg, var(--neon-red), transparent); margin-left: 15px; }
+
+        /* --- CARDS GRID --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--card-border); padding: 25px; border-radius: 12px; position: relative; overflow: hidden; transition: all 0.4s ease; }
+        .glass-card:hover { border-color: var(--neon-red); box-shadow: 0 5px 20px rgba(255, 0, 60, 0.15); transform: translateY(-5px); }
+        .card-title { color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px; }
+        .card-role { color: var(--neon-red); font-size: 0.9rem; font-weight: bold; display: block; margin-bottom: 12px; }
+        .card-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: rgba(255, 0, 60, 0.08); color: var(--neon-red); border: 1px solid var(--neon-red); padding: 4px 10px; font-size: 0.75rem; border-radius: 4px; }
+
+        /* --- SKILLS --- */
+        .skill-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .skill-hex { background: var(--glass-bg); padding: 12px 24px; color: var(--text-main); border: 1px solid var(--card-border); border-radius: 4px; transition: 0.3s; font-size: 0.9rem; cursor: default; }
+        .skill-hex:hover { background: var(--neon-red); color: #fff; border-color: var(--neon-red); transform: scale(1.05); }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 50px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--card-border); }
+        .cta-btn { display: inline-block; padding: 12px 35px; border: 2px solid var(--neon-red); color: var(--neon-red); font-weight: bold; font-size: 1rem; text-transform: uppercase; transition: 0.3s; margin-top: 20px; cursor: pointer; }
+        .cta-btn:hover { background: var(--neon-red); color: #fff; }
+
+        @keyframes glitch-anim { 0% { clip: rect(44px, 9999px, 56px, 0); } 20% { clip: rect(33px, 9999px, 10px, 0); } 40% { clip: rect(80px, 9999px, 15px, 0); } 60% { clip: rect(10px, 9999px, 90px, 0); } 80% { clip: rect(60px, 9999px, 40px, 0); } 100% { clip: rect(20px, 9999px, 60px, 0); } }
+        
+        @media (max-width: 768px) {
+            .nav-links { position: absolute; top: 60px; left: 0; width: 100%; background: var(--bg-color); flex-direction: column; align-items: center; padding: 30px 0; border-bottom: 2px solid var(--neon-red); transform: translateY(-150%); transition: transform 0.4s ease; z-index: 99; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+            .nav-links.active { transform: translateY(0); }
+            .menu-toggle { display: block; }
+            .hero { padding-top: 100px; }
+            .terminal-window { width: 95%; }
+            .terminal-body { min-height: 200px; }
+            h2::after { display: none; }
+            h2 { justify-content: center; border-bottom: 1px solid var(--neon-dim); padding-bottom: 10px; }
+            .skill-container { justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-text">INITIALIZING SYSTEM...</div>
+        <div class="loader-bar"></div>
+        <div id="crack-overlay">
+            <svg class="crack-svg" viewBox="0 0 500 500" preserveAspectRatio="none">
+                <path d="M250,250 L100,50 M250,250 L400,100 M250,250 L50,300 M250,250 L450,400 M250,250 L200,450 M150,150 L100,200 M350,150 L400,200 M150,350 L100,300 M350,350 L400,300" />
+                <path d="M250,250 L240,200 L260,180 L230,150" />
+                <path d="M250,250 L280,260 L320,240 L350,270" />
+                <path d="M250,250 L220,280 L200,320 L180,300" />
+                <path d="M250,250 L260,280 L280,350 L300,400" />
+            </svg>
+        </div>
+    </div>
+
+    <canvas id="network-canvas"></canvas>
+
+    <header>
+        <a href="#" class="logo">./RM_<span>SEC</span></a>
+        
+        <div class="header-controls">
+            <button class="theme-toggle" id="theme-toggle" onclick="switchTheme()" aria-label="Toggle Theme"><i class="fas fa-sun"></i></button>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about" onclick="toggleMenu()">Mission</a></li>
+            <li><a href="#experience" onclick="toggleMenu()">Logs</a></li>
+            <li><a href="#projects" onclick="toggleMenu()">Payloads</a></li>
+            <li><a href="#skills" onclick="toggleMenu()">Arsenal</a></li>
+        </ul>
+    </header>
+
+    <section class="hero">
+        <div class="glitch-wrapper">
+            <div class="glitch" data-text="REHAN MALEK">REHAN MALEK</div>
+        </div>
+        <div class="subtitle">OFFENSIVE SECURITY</div>
+        <div class="subtitle">PENETRATION TESTING</div>
+
+        <div class="terminal-window" onclick="document.getElementById('cmd-input').focus()">
+            <div class="terminal-bar">
+                <div class="btn red"></div>
+                <div class="btn yellow"></div>
+                <div class="btn green"></div>
+                <span class="term-title">root@BuGGy137:~</span>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <div class="output-line">Welcome to RM_SEC Terminal v1.0.</div>
+                <div class="output-line">Type 'help' to see available commands.</div>
+                <br>
+                <div class="input-line">
+                    <span class="prompt-user">root@BuGGy137</span>:<span class="prompt-path">~</span>$ 
+                    <input type="text" id="cmd-input" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2><span>01.</span> MISSION BRIEF</h2>
+        <div class="glass-card">
+            <p style="font-size: 1.05rem; color: var(--text-dim);">
+                <strong>CURRENT STATUS:</strong> M.Sc. Cyber Security Student @ NSIT-NFSU <br><br>
+                Focused on <span style="color: var(--neon-red)">Offensive Security</span> within my academic journey. I apply real-world expertise in penetration testing, exploit development, and adversary simulation. My goal is to turn academic concepts into practical research and dive deep into emerging cyber threats.
+            </p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2><span>02.</span> SYSTEM LOGS</h2>
+        <div class="card-grid">
+            <div class="glass-card">
+                <h3 class="card-title">Cyber Security Analyst</h3>
+                <span class="card-role">Cyndia CyberSpace LLP | May'25 - July'25 </span>
+                <p class="card-desc">Converted academic concepts into practical research. Dived deep into emerging cyber threats and attack vectors. Shared knowledge through technical blogs.</p>
+                <div class="tags"><span class="tag">Pentesting</span><span class="tag">Research</span><span class="tag">Team Lead</span></div>
+            </div>
+            <div class="glass-card">
+                <h3 class="card-title">PHP Developer</h3>
+                <span class="card-role">Sparks To Ideas | Nov'22 - Mar'23</span>
+                <p class="card-desc">Completed internship focused on PHP development. Gained hands-on experience in backend scripting which now complements my cybersecurity knowledge.</p>
+                <div class="tags"><span class="tag">PHP</span><span class="tag">Web Dev</span><span class="tag">Backend</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2><span>03.</span> EXECUTED PAYLOADS</h2>
+        <div class="card-grid">
+            <div class="glass-card">
+                <h3 class="card-title">Root Phone Lock Bypass</h3>
+                <span class="card-role">M.Sc.cybersecurity | Sem-2 Project</span>
+                <p class="card-desc">A forensic utility designed for ethical research. Connects to a rooted Android device using ADB and executes scripted commands to remove the screen lock files, bypassing security.</p>
+                <div class="tags"><span class="tag">ADB</span><span class="tag">Android Forensics</span><span class="tag">Shell</span></div>
+            </div>
+            <div class="glass-card">
+                <h3 class="card-title">Enterprise Wi-Fi System</h3>
+                <span class="card-role">Cyndia CyberSpace LLP</span>
+                <p class="card-desc">Served as Team Lead for the cloud-based deployment of FreeRADIUS, MariaDB, and Nginx for enhanced infrastructure security.</p>
+                <div class="tags"><span class="tag">FreeRADIUS</span><span class="tag">Linux</span><span class="tag">Cloud Infra</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2><span>04.</span> ARSENAL</h2>
+        <div class="skill-container">
+            <div class="skill-hex">Malware Analysis</div>
+            <div class="skill-hex">Penetration Testing</div>
+            <div class="skill-hex">Burp Suite</div>
+            <div class="skill-hex">Metasploit</div>
+            <div class="skill-hex">Wireshark</div>
+            <div class="skill-hex">Nmap</div>
+            <div class="skill-hex">Kali Linux</div>
+            <div class="skill-hex">OWASP Top 10</div>
+            <div class="skill-hex">PHP</div>
+            <div class="skill-hex">Network Security</div>
+            <div class="skill-hex">Security Researcher</div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="color: var(--text-dim); font-size: 0.8rem;">END OF LINE SEQUENCE...</p>
+        <p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 10px;">root@BuGGy137:~$ cat /etc/motd</p>
+        <h3 style="color: var(--text-main); margin: 10px 0;">REHAN MALEK</h3>
+        <div style="font-size: 0.9rem; margin-bottom: 20px;">
+            <a href="mailto:malekrehan113377@gmail.com" style="color:var(--text-dim); text-decoration:none;">malekrehan113377@gmail.com</a>
+        </div>
+        <a href="https://www.linkedin.com/in/rehan-malek-39440924b" class="cta-btn">ESTABLISH CONNECTION</a>
+        <br><br>
+        <p style="font-size: 0.75rem; color: var(--text-dim);">© 2025 Rehan Malek. All systems operational.</p>
+    </footer>
+
+    <script>
+        // --- PRELOADER ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const crackOverlay = document.getElementById('crack-overlay');
+            const loaderText = document.querySelector('.loader-text');
+            setTimeout(() => {
+                crackOverlay.style.opacity = '1';
+                preloader.classList.add('shake-screen');
+                loaderText.innerText = "CRITICAL SYSTEM FAILURE";
+                loaderText.style.color = "red";
+                loaderText.style.textShadow = "0 0 10px red";
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => { preloader.style.display = 'none'; }, 500);
+                }, 2500); 
+            }, 2500); 
+        });
+
+        // --- THEME ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+        }
+        function switchTheme() {
+            const currentTheme = html.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // --- MENU ---
+        const navLinks = document.querySelector('.nav-links');
+        function toggleMenu() { navLinks.classList.toggle('active'); }
+
+        // --- BACKGROUND ---
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        let particlesArray;
+        const isMobile = window.innerWidth < 768;
+        const particleCountDivisor = isMobile ? 15000 : 9000;
+        const connectDistance = isMobile ? 80 : 120;
+        let mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', function(event) { mouse.x = event.x; mouse.y = event.y; });
+        window.addEventListener('touchmove', function(event) { mouse.x = event.touches[0].clientX; mouse.y = event.touches[0].clientY; });
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size) { this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; }
+            draw() {
+                const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--neon-red').trim();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = particleColor; ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 3;
+                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 3;
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 3;
+                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 3;
+                }
+                this.x += this.directionX; this.y += this.directionY; this.draw();
+            }
+        }
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / particleCountDivisor;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 1) - 0.5; let directionY = (Math.random() * 1) - 0.5;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size));
+            }
+        }
+        function animate() {
+            requestAnimationFrame(animate); ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+            connect();
+        }
+        function connect() {
+            const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--neon-red').trim();
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (connectDistance * connectDistance)) {
+                        ctx.strokeStyle = particleColor; ctx.lineWidth = 1; ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
+                    }
+                }
+            }
+        }
+        init(); animate();
+
+        // --- INTERACTIVE TERMINAL LOGIC ---
+        const cmdInput = document.getElementById('cmd-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const promptHTML = '<div class="input-line"><span class="prompt-user">root@BuGGy137</span>:<span class="prompt-path">~</span>$&nbsp;';
+
+        // Pre-canned responses
+        const commands = {
+            'help': 'Available commands: help, whoami, skills, contact, clear',
+            'whoami': 'Rehan Malek - Offensive Security Specialist',
+            'skills': 'Pentesting, Malware Analysis, Burp Suite, Python, PHP',
+            'contact': 'Email: malekrehan113377@gmail.com | LinkedIn: https://www.linkedin.com/in/rehan-malek-39440924b',
+        };
+
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                const oldInputLine = document.createElement('div');
+                oldInputLine.className = 'output-line';
+                oldInputLine.innerHTML = `<span class="prompt-user">root@BuGGy137</span>:<span class="prompt-path">~</span>$ ${this.value}`;
+                terminalOutput.insertBefore(oldInputLine, this.parentElement);
+                if (command === 'clear') {
+                    const lines = terminalOutput.querySelectorAll('.output-line');
+                    lines.forEach(line => line.remove());
+                } else if (commands[command]) {
+                    const response = document.createElement('div');
+                    response.className = 'output-line';
+                    response.style.color = '#ccc';
+                    response.innerText = commands[command];
+                    terminalOutput.insertBefore(response, this.parentElement);
+                } else if (command !== '') {
+                    const error = document.createElement('div');
+                    error.className = 'output-line';
+                    error.style.color = 'red';
+                    error.innerText = `Command not found: ${command}. Type 'help' for list.`;
+                    terminalOutput.insertBefore(error, this.parentElement);
+                }
+                this.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
