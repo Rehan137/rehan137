@@ -1,6 +1,6 @@
 <div align="center">
   <h1 align="center">Rehan Malek</h1>
-  <h3 align="center">./RM_SEC <span style="color: #ff003c;">[OFFENSIVE SECURITY SPECIALIST]</span></h3>
+  <h3 align="center">./RM_SEC <span style="color: #ff003c;">[OFFENSIVE SECURITY]</span></h3>
 </div>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 I am currently a **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offensive Security**. I apply real-world expertise in penetration testing, exploit development, and adversary simulation.
 
-- 🔭 **Currently working on:** Advanced Malware Analysis & Custom Android Forensics Tools.
+- 🔭 **Currently working on:** Advanced DevBoard Devlopment For Flipper Zero.
 - 🌱 **Learning:** Exploit Development & Hardware Hacking.
 - 💬 **Ask me about:** Web Application Security, Android Rooting, and CTFs.
 - ⚡ **Fun fact:** I built a forensic utility to bypass root phone locks using ADB shell.
