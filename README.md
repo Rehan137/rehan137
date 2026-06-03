@@ -14,7 +14,7 @@
   ---
   
   <p align="center">
-    <i>"Turns academic concepts into practical research. Diving deep into emerging cyber threats."</i>
+    <i>"Turning academic concepts into practical research. Diving deep into emerging cyber threats."</i>
   </p>
 
   <a href="mailto:malekrehan113377@gmail.com">
@@ -27,12 +27,28 @@
 
 ## 🚩 Mission Brief
 
-I am currently a **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offensive Security**. I apply real-world expertise in penetration testing, exploit development, and adversary simulation.
+I'm currently an **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offensive Security**. I apply real-world expertise in penetration testing, exploit development, and adversary simulation.
 
-- 🔭 **Currently working on:** Advanced DevBoard Devlopment For Flipper Zero.
+- 🔭 **Currently working on:** Advanced DevBoard development for Flipper Zero & **OriginFind** – an OSINT origin discovery tool.
 - 🌱 **Learning:** Exploit Development & Hardware Hacking.
-- 💬 **Ask me about:** Web Application Security, Android Rooting, and CTFs.
-- ⚡ **Fun fact:** I built a forensic utility to bypass root phone locks using ADB shell.
+- 💬 **Ask me about:** Web App Security, Android Rooting, and CTFs.
+- ⚡ **Fun fact:** I built a forensic utility to bypass rooted phone locks using ADB shell.
+
+## 🚀 Featured Projects
+
+### 🔍 OriginFind `[ACTIVE]`
+> **OSINT reconnaissance framework to uncover origin servers and bypass CDN protections**
+
+- **Purpose:** Identify real origin IP addresses behind CDNs (Cloudflare, Akamai, etc.) using advanced techniques like DNS history, SSL certificate analysis, and global scanning.
+- **Tech stack:** Python, Shodan API, Censys, asyncio, masscan.
+- **Use case:** Penetration testers and red teamers can map the true attack surface of a target behind WAF/CDN.
+- **Status:** Active development – currently adding historical DNS mining and automated report generation.
+
+### 🛠️ Root Phone Lock Bypass `[COMPLETED]`
+> *Forensic utility for ethical research* – connects to a rooted Android device via ADB and removes screen‑lock files (bypass gesture/PIN) for authorized forensic investigations.
+
+### 🌐 Enterprise Wi-Fi System `[COMPLETED]`
+> *Team Lead* – cloud‑based deployment of FreeRADIUS + MariaDB + Nginx for secure 802.1X authentication.
 
 ## ⚔️ Arsenal (Skills)
 
@@ -46,13 +62,13 @@ I am currently a **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offe
 ## 📂 System Logs (Experience)
 
 ### **Cyndia CyberSpace LLP** | *Cyber Security Analyst*
-> `May 2025 - July 2025`
-> * Conducted vulnerability research and penetration testing.
-> * Served as Team Lead for Enterprise Wi-Fi deployment (FreeRADIUS, MariaDB).
+> `May 2025 – July 2025`
+> - Conducted vulnerability research and penetration testing.
+> - Served as Team Lead for Enterprise Wi‑Fi deployment (FreeRADIUS, MariaDB).
 
 ### **Sparks To Ideas** | *PHP Developer*
-> `Nov 2022 - Mar 2023`
-> * Hands-on backend scripting and web development.
+> `Nov 2022 – Mar 2023`
+> - Backend scripting and web development – foundational experience now applied to security tooling.
 
 ## 📊 Terminal Stats
 
@@ -65,5 +81,5 @@ I am currently a **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offe
   <br>
   <img src="https://komarev.com/ghpvc/?username=Rehan137&color=ff003c&style=flat-square&label=VISITORS" alt="visitors" />
   <br><br>
-  <p style="color: #888;">root@BuGGy137:~$ echo "End of Line..."</p>
+  <p style="color: #888;">root@BuGGy137:~$ echo "OriginFind – scanning for truth..."</p>
 </div>
