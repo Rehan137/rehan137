@@ -29,7 +29,7 @@
 
 I'm currently an **M.Sc. Cyber Security Student @ NSIT-NFSU**, focused on **Offensive Security**. I apply real-world expertise in penetration testing, exploit development, and adversary simulation.
 
-- 🔭 **Currently working on:** Advanced DevBoard development for Flipper Zero & **OriginFind** – an OSINT origin discovery tool.
+- 🔭 **Currently working on:** Advanced DevBoard development for Flipper Zero.
 - 🌱 **Learning:** Exploit Development & Hardware Hacking.
 - 💬 **Ask me about:** Web App Security, Android Rooting, and CTFs.
 - ⚡ **Fun fact:** I built a forensic utility to bypass rooted phone locks using ADB shell.
