@@ -305,13 +305,13 @@ Custom 5-in-1 PCB extension board for Flipper Zero — dramatically expanding RF
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=Rehan137&show_icons=true&theme=radical&bg_color=0d1117&title_color=ff003c&icon_color=4cc9f0&text_color=c9d1d9&border_color=ff003c&hide_border=false" width="48%" />
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Rehan137&theme=radical" width="36%" />
 &nbsp;
-<img src="https://github-readme-streak-stats.herokuapp.com?user=Rehan137&theme=radical&background=0d1117&border=ff003c&ring=ff003c&fire=ff6b35&currStreakLabel=4cc9f0&sideLabels=4cc9f0&currStreakNum=ffffff&sideNums=ffffff&dates=9d4edd" width="48%" />
+<img src="https://github-readme-streak-stats.herokuapp.com?user=Rehan137&theme=radical&background=0d1117&border=ff003c&ring=ff003c&fire=ff6b35&currStreakLabel=4cc9f0&sideLabels=4cc9f0&currStreakNum=ffffff&sideNums=ffffff&dates=9d4edd" width="58%" />
 
 <br/><br/>
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rehan137&layout=donut&theme=radical&bg_color=0d1117&title_color=ff003c&text_color=c9d1d9&border_color=ff003c&hide_border=false" width="36%" />
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Rehan137&theme=radical" width="36%" />
 &nbsp;
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Rehan137&theme=redical&bg_color=0d1117&color=ff003c&line=4cc9f0&point=ff003c&area=true" width="59%" />
 
@@ -319,10 +319,21 @@ Custom 5-in-1 PCB extension board for Flipper Zero — dramatically expanding RF
 
 ---
 
-## 🏆 `TROPHY ROOM`
+## 🏆 `SKILL MATRIX — THREAT LEVEL`
 
 <div align="center">
-<img src="https://github-profile-trophy.vercel.app/?username=Rehan137&theme=radical&no-frame=true&no-bg=true&margin-w=4&row=1&column=7" />
+
+| DOMAIN | SKILL | THREAT LEVEL |
+|:------:|:-----:|:------------:|
+| 🌐 Web App Pentesting | Burp Suite / OWASP | `████████████ ADVANCED` |
+| 📡 Hardware Hacking | Flipper Zero / RF / RFID | `█████████░░░ PROFICIENT` |
+| 🏭 ICS / SCADA | Kotori / Modbus / OT | `██████████░░ ADVANCED` |
+| 🔐 Network / Auth | RADIUS / AAA / MITM | `████████████ ADVANCED` |
+| 🐍 Python Scripting | Exploit Dev / Automation | `█████████░░░ PROFICIENT` |
+| 🔎 OSINT / Recon | Shodan / DNS / Nmap | `████████████ ADVANCED` |
+| 💾 Forensics | Digital Evidence / Analysis | `███████░░░░░ INTERMEDIATE` |
+| 🧩 CTF | Capture The Flag | `████████░░░░ PROFICIENT` |
+
 </div>
 
 ---
