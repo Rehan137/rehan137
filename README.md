@@ -60,7 +60,7 @@
 root@kali:~# cat /etc/threat-actor.json
 {
   "operator"    : "Rehan Malek",
-  "affiliation" : "NIST Ahmedabad [M.Sc Cybersec]",
+  "affiliation" : "NSIT Ahmedabad [M.Sc Cybersec]",
   "clearance"   : "RED TEAM // UNRESTRICTED",
   "specialties" : [
     "ICS/SCADA Exploitation",
