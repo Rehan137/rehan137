@@ -95,7 +95,7 @@ root@kali:~# cat /etc/threat-actor.json
 
 | 🔴 STATUS | CVE ID | TARGET | SEVERITY | CLASS |
 |:---------:|:------:|:------:|:--------:|:-----:|
-| ⏳ `PENDIN` | `CVE-XXXX-XXXXX` | **Kotori ICS/SCADA** | 🔴 CRITICAL | Unauthenticated Telemetry Data Poisoning |
+| ⏳ `PENDING` | `CVE-XXXX-XXXXX` | **Kotori ICS/SCADA** | 🔴 CRITICAL | Unauthenticated Telemetry Data Poisoning |
 
 </div>
 
