@@ -60,7 +60,7 @@
 root@kali:~# cat /etc/threat-actor.json
 {
   "operator"    : "Rehan Malek",
-  "affiliation" : "NSIT Ahmedabad [M.Sc Cybersec]",
+  "affiliation" : "NIST Ahmedabad [M.Sc Cybersec]",
   "clearance"   : "RED TEAM // UNRESTRICTED",
   "specialties" : [
     "ICS/SCADA Exploitation",
@@ -305,15 +305,28 @@ Custom 5-in-1 PCB extension board for Flipper Zero — dramatically expanding RF
 
 <div align="center">
 
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Rehan137&theme=radical" width="36%" />
+<!-- ══ ROW 1: GitHub stat badges via shields.io CDN — never rate-limits ══ -->
+<img src="https://img.shields.io/github/followers/Rehan137?style=for-the-badge&logo=github&color=ff003c&labelColor=0d1117&label=FOLLOWERS" />
 &nbsp;
-<img src="https://github-readme-streak-stats.herokuapp.com?user=Rehan137&theme=radical&background=0d1117&border=ff003c&ring=ff003c&fire=ff6b35&currStreakLabel=4cc9f0&sideLabels=4cc9f0&currStreakNum=ffffff&sideNums=ffffff&dates=9d4edd" width="58%" />
+<img src="https://img.shields.io/badge/REPOSITORIES-5-4cc9f0?style=for-the-badge&logo=github&labelColor=0d1117" />
+&nbsp;
+<img src="https://img.shields.io/badge/TOTAL_STARS-1-ffd700?style=for-the-badge&logo=github&labelColor=0d1117" />
 
 <br/><br/>
 
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Rehan137&theme=radical" width="36%" />
+<!-- ══ ROW 2: Custom mission-critical stat badges ══ -->
+<img src="https://img.shields.io/badge/CVE_RESEARCH-1_PENDING-ff003c?style=for-the-badge&labelColor=0d1117" />
 &nbsp;
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Rehan137&theme=redical&bg_color=0d1117&color=ff003c&line=4cc9f0&point=ff003c&area=true" width="59%" />
+<img src="https://img.shields.io/badge/BUG_BOUNTIES-ACTIVE-39ff14?style=for-the-badge&labelColor=0d1117" />
+&nbsp;
+<img src="https://img.shields.io/badge/CLEARANCE-RED_TEAM-9d4edd?style=for-the-badge&labelColor=0d1117" />
+&nbsp;
+<img src="https://img.shields.io/badge/STATUS-HUNTING-ff003c?style=for-the-badge&labelColor=0d1117" />
+
+<br/><br/>
+
+<!-- ══ CONTRIBUTION GRAPH — confirmed working ✅ ══ -->
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=Rehan137&theme=redical&bg_color=0d1117&color=ff003c&line=4cc9f0&point=ff003c&area=true" width="95%" />
 
 </div>
 
