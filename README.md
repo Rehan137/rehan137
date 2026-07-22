@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- ██████████████████ CLASSIFIED HEADER ██████████████████ -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:0d0000,40:1a0000,60:1a0000,100:0d0000&height=210&section=header&text=%E2%98%A0%EF%B8%8F%20REHAN%20MALEK%20%E2%98%A0%EF%B8%8F&fontSize=54&fontColor=ff003c&animation=fadeIn&fontAlignY=42&desc=ZERO-DAY%20RESEARCHER%20%7C%20BUG%20BOUNTY%20OPERATOR%20%7C%20RED%20TEAM%20%7C%20CVE%20AUTHOR&descAlignY=68&descSize=15&descColor=00ff41" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:0d0000,40:1a0000,60:1a0000,100:0d0000&height=210&section=header&text=%E2%98%A0%EF%B8%8F%20BuGGy%20137%20%E2%98%A0%EF%B8%8F&fontSize=54&fontColor=ff003c&animation=fadeIn&fontAlignY=42&desc=ZERO-DAY%20RESEARCHER%20%7C%20BUG%20BOUNTY%20OPERATOR%20%7C%20RED%20TEAM%20%7C%20CVE%20AUTHOR&descAlignY=68&descSize=15&descColor=00ff41" />
 
 <!-- GREEN DECRYPTION TICKER -->
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=13&pause=99999&color=00FF41&center=true&vCenter=true&width=960&height=26&lines=◄+DECRYPTING+CLASSIFIED+FILE+7331...+OPERATOR+ID%3A+BuGGy_137...+CLEARANCE+VERIFIED...+ACCESS+GRANTED+►" />
